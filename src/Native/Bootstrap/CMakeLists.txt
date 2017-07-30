@@ -11,3 +11,4 @@ endif()
 
 add_subdirectory(base)
 add_subdirectory(cpp)
+add_subdirectory(dll)
