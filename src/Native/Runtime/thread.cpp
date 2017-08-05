@@ -1268,9 +1268,15 @@ EXTERN_C NOINLINE void FASTCALL RhpReversePInvokeAttachOrTrapThread2(ReversePInv
 // PInvoke
 //
 
+extern "C" int InitializeRuntime();
+
 // Standard calling convention variant of RhpReversePInvoke
 COOP_PINVOKE_HELPER(void, RhpReversePInvoke2, (ReversePInvokeFrame * pFrame))
 {
+    // Entrypoint for reverse PInvoke
+    // ensure runtime is initialized
+    InitializeRuntime();
+
     Thread * pCurThread = ThreadStore::RawGetCurrentThread();
     pFrame->m_savedThread = pCurThread;
     if (pCurThread->InlineTryFastReversePInvoke(pFrame))
